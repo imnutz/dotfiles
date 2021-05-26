@@ -1,3 +1,7 @@
+set nocompatible
+filetype plugin on
+syntax on
+
 call plug#begin('~/.vim/plugged')
 
 Plug 'tpope/vim-fugitive'
@@ -7,6 +11,8 @@ Plug 'nvim-telescope/telescope.nvim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'gruvbox-community/gruvbox'
 Plug 'fannheyward/coc-rust-analyzer'
+Plug 'vimwiki/vimwiki'
+Plug 'mattn/calendar-vim'
 
 call plug#end()
 
@@ -101,3 +107,6 @@ map <silent> <M-l> <C-w>>
 " Maps Alt-[s.v] to horizontal and vertical split respectively
 map <silent> <M-s> :split<CR>
 map <silent> <M-v> :vsplit<CR>
+
+" Vim Wiki
+let g:vimwiki_list = [{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.md', 'auto_diary_index': 1}]
