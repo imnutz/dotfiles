@@ -99,10 +99,10 @@ nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
 " Maps Alt-[h,j,k,l] to resizing a window split
-map <silent> <M-h> <C-w><
-map <silent> <M-j> <C-W>-
-map <silent> <M-k> <C-W>+
-map <silent> <M-l> <C-w>>
+map <silent> <M-y> <C-w><
+map <silent> <M-u> <C-W>-
+map <silent> <M-i> <C-W>+
+map <silent> <M-o> <C-w>>
 
 " Maps Alt-[s.v] to horizontal and vertical split respectively
 map <silent> <M-s> :split<CR>
