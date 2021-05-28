@@ -13,6 +13,7 @@ Plug 'gruvbox-community/gruvbox'
 Plug 'fannheyward/coc-rust-analyzer'
 Plug 'vimwiki/vimwiki'
 Plug 'mattn/calendar-vim'
+Plug 'tpope/vim-commentary'
 
 call plug#end()
 
