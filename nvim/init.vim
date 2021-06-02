@@ -13,6 +13,7 @@ Plug 'gruvbox-community/gruvbox'
 Plug 'fannheyward/coc-rust-analyzer'
 Plug 'vimwiki/vimwiki'
 Plug 'mattn/calendar-vim'
+Plug 'mattn/emmet-vim'
 Plug 'tpope/vim-commentary'
 
 call plug#end()
@@ -111,3 +112,8 @@ map <silent> <M-v> :vsplit<CR>
 
 " Vim Wiki
 let g:vimwiki_list = [{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.md', 'auto_diary_index': 1}]
+
+" Prettier
+command! -nargs=0 Prettier :CocCommand prettier.formatFile
+vmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
