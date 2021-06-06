@@ -15,8 +15,25 @@ Plug 'vimwiki/vimwiki'
 Plug 'mattn/calendar-vim'
 Plug 'mattn/emmet-vim'
 Plug 'tpope/vim-commentary'
+Plug 'rust-lang/rust.vim'
+Plug 'justinmk/vim-sneak'
 
 call plug#end()
+
+if has('nvim')
+    set guicursor=n-v-c:block-Cursor/lCursor-blinkon0,i-ci:ver25-Cursor/lCursor,r-cr:hor20-Cursor/lCursor
+    set inccommand=nosplit
+    noremap <C-q> :confirm qall<CR>
+end
+
+" deal with colors
+if !has('gui_running')
+  set t_Co=256
+endif
+if (match($TERM, "-256color") != -1) && (match($TERM, "screen-256color") == -1)
+  " screen does not (yet) support truecolor
+  set termguicolors
+endif
 
 set exrc
 set guicursor=
@@ -41,13 +58,15 @@ set noshowmode
 set completeopt=menuone,noinsert,noselect
 set colorcolumn=80
 set signcolumn=yes
-
+set diffopt+=iwhite " No whitespace in vimdiff
+" Make diffing better: https://vimways.org/2018/the-power-of-diff/
+set diffopt+=algorithm:patience
+set diffopt+=indent-heuristic
 set cmdheight=2
-
 set updatetime=50
-
 set shortmess+=c
-colorscheme gruvbox
+set showcmd
+set mouse=a
 
 " Nice menu when typing `:find *.py`
 set wildmode=longest,list,full
@@ -61,6 +80,8 @@ set wildignore+=**/android/*
 set wildignore+=**/ios/*
 set wildignore+=**/.git/*
 
+colorscheme gruvbox
+
 inoremap " ""<left>
 inoremap ' ''<left>
 inoremap ( ()<left>
@@ -72,6 +93,12 @@ inoremap {;<CR> {<CR>};<ESC>O
 " Key mappings
 let mapleader=' '
 inoremap jk <Esc>
+
+" <leader><leader> toggles between buffers
+nnoremap <leader><leader> <c-^>
+
+" Quick-save
+nmap <leader>w :w<CR>
 
 """ Windows {{{
 nnoremap <C-h> <C-w>h
@@ -99,6 +126,20 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" Find symbol of current document.
+nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+
+" Search workspace symbols.
+nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
+
+" Implement methods for trait
+nnoremap <silent> <space>i  :call CocActionAsync('codeAction', '', 'Implement missing members')<cr>
+
+" Show actions available at this location
+nnoremap <silent> <space>a  :CocAction<cr>
 
 " Maps Alt-[h,j,k,l] to resizing a window split
 map <silent> <M-y> <C-w><
@@ -113,7 +154,41 @@ map <silent> <M-v> :vsplit<CR>
 " Vim Wiki
 let g:vimwiki_list = [{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.md', 'auto_diary_index': 1}]
 
+" Running :RustFmt on saving
+let g:rustfmt_autosave = 1
+
 " Prettier
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
 vmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format-selected)
+
+vmap <leader>fr :RustFmt<CR>
+nmap <leader>fr :RustFmt<CR>
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+
+" Neat X clipboard integration
+" ,p will paste clipboard into buffer
+" ,c will copy entire buffer into clipboard
+noremap <leader>p :.w !pbcopy<CR><CR>
+noremap <leader>c :r !pbpaste<CR>
+
+" vim-sneak
+nmap f <Plug>Sneak_f
+nmap F <Plug>Sneak_F
+nmap t <Plug>Sneak_t
+nmap T <Plug>Sneak_T
+
+let g:sneak#s_next = 1
+let g:sneak#label = 1
+let g:sneak#use_ic_scs = 1
