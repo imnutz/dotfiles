@@ -20,6 +20,7 @@ Plug 'justinmk/vim-sneak'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
 Plug 'APZelos/blamer.nvim'
 Plug 'tpope/vim-vinegar'
+Plug 'maxmellon/vim-jsx-pretty'
 
 call plug#end()
 
