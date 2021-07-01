@@ -21,6 +21,7 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
 Plug 'APZelos/blamer.nvim'
 Plug 'tpope/vim-vinegar'
 Plug 'maxmellon/vim-jsx-pretty'
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 
 call plug#end()
 
@@ -111,12 +112,6 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 " }}}
 "
-" Telescope
-nnoremap <leader>ff <cmd>Telescope find_files<cr>
-nnoremap <leader>fg <cmd>Telescope live_grep<cr>
-nnoremap <leader>fb <cmd>Telescope buffers<cr>
-nnoremap <leader>fh <cmd>Telescope help_tags<cr>
-
 vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
 
