@@ -194,3 +194,4 @@ let g:sneak#use_ic_scs = 1
 
 " netrw
 nmap <unique> <leader>l <Plug>NetrwRefresh
+let g:netrw_localrmdir='rm -r'
