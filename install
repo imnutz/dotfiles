@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+STOW_FOLDERS="alacritty,nvim,tmux"
+
+for folder in $(echo $STOW_FOLDERS | sed "s/,/ /g")
+do
+  stow -nD $folder
+  stow --adopt -nvt ~ $folder
+done

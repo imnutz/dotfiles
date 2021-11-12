@@ -102,6 +102,8 @@ inoremap jk <Esc>
 " <leader><leader> toggles between buffers
 nnoremap <leader><leader> <c-^>
 
+inoremap <silent><expr> <c-space> coc#refresh()
+
 " Quick-save
 nmap <leader>w :w<CR>
 
