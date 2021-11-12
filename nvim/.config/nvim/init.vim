@@ -99,6 +99,10 @@ inoremap <silent><expr> <c-space> coc#refresh()
 " Quick-save
 nmap <leader>w :w<CR>
 
+nnoremap <leader>x :silent !chmod +x %<CR>
+nnoremap <silent> <C-f> :silent !tmux neww tmux-sessionizer<CR>
+nnoremap <Leader><CR> :so ~/.config/nvim/init.vim<CR>
+
 """ Windows {{{
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
