@@ -193,3 +193,5 @@ let g:sneak#use_ic_scs = 1
 " netrw
 nmap <unique> <leader>l <Plug>NetrwRefresh
 let g:netrw_localrmdir='rm -r'
+
+inoremap <silent><expr> <cr> coc#pum#visible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
