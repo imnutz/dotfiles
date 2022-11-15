@@ -186,6 +186,10 @@ nmap F <Plug>Sneak_F
 nmap t <Plug>Sneak_t
 nmap T <Plug>Sneak_T
 
+nnoremap <C-u> <C-u>zz
+nnoremap <C-d> <C-d>zz
+nnoremap n nzz
+
 let g:sneak#s_next = 1
 let g:sneak#label = 1
 let g:sneak#use_ic_scs = 1
