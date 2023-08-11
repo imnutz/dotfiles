@@ -22,6 +22,7 @@ Plug 'APZelos/blamer.nvim'
 Plug 'tpope/vim-vinegar'
 Plug 'maxmellon/vim-jsx-pretty'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+Plug 'vim-airline/vim-airline'
 
 call plug#end()
 
