@@ -30,7 +30,10 @@ vim.opt.updatetime = 50
 
 vim.opt.cmdheight = 2
 
-vim.opt.wildmode="longest,list,full"
+vim.opt.wildmode="longest,list:longest,full"
 vim.opt.wildmenu = true
 vim.opt.showcmd = true
 vim.opt.mouse = "a"
+
+vim.opt.list = true
+vim.opt.listchars:append "eol:↴"

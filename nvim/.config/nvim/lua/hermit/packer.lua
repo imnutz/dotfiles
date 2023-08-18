@@ -35,4 +35,11 @@ return require('packer').startup(function(use)
   use 'tpope/vim-vinegar'
   use 'morhetz/gruvbox'
   use {"akinsho/toggleterm.nvim", tag = '*'}
+  use {
+    'nvim-lualine/lualine.nvim',
+    requires = { 'nvim-tree/nvim-web-devicons', opt = true }
+  }
+
+  use 'lukas-reineke/indent-blankline.nvim'
+  use 'numToStr/Comment.nvim'
 end)
