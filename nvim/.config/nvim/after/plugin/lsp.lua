@@ -1,6 +1,10 @@
 local lsp = require('lsp-zero').preset({})
 local builtin = require('telescope.builtin')
 
+vim.diagnostic.config({
+  virtual_text = false,
+})
+
 lsp.on_attach(function(client, bufnr)
 	-- see :help lsp-zero-keybindings
 	-- to learn the available actions
