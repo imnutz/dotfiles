@@ -98,6 +98,8 @@ alt - r : yabai -m space --rotate 90
 
 alt - g : yabai -m space --toggle padding; yabai -m space --toggle gap
 
+cmd - e : yabai -m space --toggle show-desktop
+
 # balance size of windows
 shift + alt - 0 : yabai -m space --balance
 
