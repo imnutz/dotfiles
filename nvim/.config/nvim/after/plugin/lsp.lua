@@ -1,5 +1,6 @@
 local lsp = require('lsp-zero').preset({})
 local builtin = require('telescope.builtin')
+local cmp = require('cmp')
 
 vim.diagnostic.config({
   virtual_text = false,
@@ -11,33 +12,44 @@ lsp.on_attach(function(client, bufnr)
 	lsp.default_keymaps({buffer = bufnr})
 end)
 
-lsp.ensure_installed({
-	'tsserver',
-	'rust_analyzer',
-	'solargraph'
-})
-
--- Fix Undefined global 'vim'
-lsp.nvim_workspace()
-
 -- (Optional) Configure lua language server for neovim
 require('lspconfig').lua_ls.setup(lsp.nvim_lua_ls())
 require'lspconfig'.solargraph.setup{}
-
-local cmp = require('cmp')
-local cmp_select = {behavior = cmp.SelectBehavior.Select}
-local cmp_mappings = lsp.defaults.cmp_mappings({
-	['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
-	['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
-	['<C-y>'] = cmp.mapping.confirm({ select = true }),
-	["<C-Space>"] = cmp.mapping.complete(),
+require('mason').setup({})
+require('mason-lspconfig').setup({
+  ensure_installed = {'tsserver'},
+  handlers = {
+    function(server_name)
+      require('lspconfig')[server_name].setup({})
+    end,
+  }
 })
 
-cmp_mappings['<Tab>'] = nil
-cmp_mappings['<S-Tab>'] = nil
-
-lsp.setup_nvim_cmp({
-	mapping = cmp_mappings
+cmp.setup({
+  sources = {
+    { name = 'nvim_lsp' },
+    { name = 'buffer' },
+  },
+  mapping = {
+    ['<C-y>'] = cmp.mapping.confirm({select = false}),
+    ['<C-e>'] = cmp.mapping.abort(),
+    ['<Up>'] = cmp.mapping.select_prev_item({behavior = 'select'}),
+    ['<Down>'] = cmp.mapping.select_next_item({behavior = 'select'}),
+    ['<C-p>'] = cmp.mapping(function()
+      if cmp.visible() then
+        cmp.select_prev_item({behavior = 'insert'})
+      else
+        cmp.complete()
+      end
+    end),
+    ['<C-n>'] = cmp.mapping(function()
+      if cmp.visible() then
+        cmp.select_next_item({behavior = 'insert'})
+      else
+        cmp.complete()
+      end
+    end),
+  }
 })
 
 lsp.set_preferences({
