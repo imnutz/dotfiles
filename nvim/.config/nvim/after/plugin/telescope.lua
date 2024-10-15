@@ -4,11 +4,11 @@ require('telescope').setup {
 	defaults = {
 		file_sorter = require('telescope.sorters').get_fzy_sorter,
 		prompt_prefix = ' > ',
-		color_devicons = true,
+		color_devicons = false,
 
-		file_previewer   = require('telescope.previewers').vim_buffer_cat.new,
-		grep_previewer   = require('telescope.previewers').vim_buffer_vimgrep.new,
-		qflist_previewer = require('telescope.previewers').vim_buffer_qflist.new,
+		file_previewer   = require('telescope.previewers').cat.view,
+		grep_previewer   = require('telescope.previewers').vimgrep.new,
+		qflist_previewer = require('telescope.previewers').qflist.new,
 	},
 	extensions = {
 		fzy = {
@@ -23,6 +23,7 @@ require('telescope').setup {
 vim.keymap.set('n', '<leader>pf', builtin.find_files, {})
 vim.keymap.set('n', '<C-p>', builtin.git_files, {})
 vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
+vim.keymap.set('n', '<leader>fr', builtin.resume, {})
 vim.keymap.set('n', '<leader>ps', function() 
 	builtin.grep_string({ search = vim.fn.input("Grep > ") })
 end)

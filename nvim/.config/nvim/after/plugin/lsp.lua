@@ -17,7 +17,7 @@ require('lspconfig').lua_ls.setup(lsp.nvim_lua_ls())
 require'lspconfig'.solargraph.setup{}
 require('mason').setup({})
 require('mason-lspconfig').setup({
-  ensure_installed = {'tsserver'},
+  ensure_installed = {'ts_ls'},
   handlers = {
     function(server_name)
       require('lspconfig')[server_name].setup({})
