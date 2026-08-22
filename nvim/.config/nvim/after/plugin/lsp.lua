@@ -21,6 +21,7 @@ vim.lsp.config('*', {
 
 vim.lsp.enable('lua_ls')
 vim.lsp.enable('solargraph')
+vim.lsp.enable('ts_ls')
 
 vim.api.nvim_create_autocmd('LspAttach', {
     callback = function(event)

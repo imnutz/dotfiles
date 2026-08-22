@@ -24,12 +24,11 @@ local plugins = {
 
   {
       'nvim-telescope/telescope.nvim',
-      tag = '0.1.2',
-      -- or                            , branch = '0.1.x',
+      tag = 'v0.2.2',
       dependencies = { { 'nvim-lua/plenary.nvim' } }
   },
 
-  { 'nvim-treesitter/nvim-treesitter', branch = 'master', lazy = false, build = ':TSUpdate' },
+  { 'nvim-treesitter/nvim-treesitter', branch = 'main', lazy = false, build = ':TSUpdate' },
   'mbbill/undotree',
   'tpope/vim-fugitive',
   { 'neovim/nvim-lspconfig' },
