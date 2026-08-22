@@ -20,9 +20,7 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
 local plugins = {
-  -- Packer can manage itself
   'nvim-tree/nvim-web-devicons',
-  'echasnovski/mini.icons',
 
   {
       'nvim-telescope/telescope.nvim',
@@ -32,25 +30,10 @@ local plugins = {
   },
 
   { 'nvim-treesitter/nvim-treesitter', branch = 'master', lazy = false, build = ':TSUpdate' },
-  'ThePrimeagen/harpoon',
   'mbbill/undotree',
   'tpope/vim-fugitive',
-  {
-      'VonHeikemen/lsp-zero.nvim',
-      branch = 'v3.x',
-      dependencies = {
-          -- LSP Support
-          { 'neovim/nvim-lspconfig' },             -- Required
-          { 'williamboman/mason.nvim' },           -- Optional
-          { 'williamboman/mason-lspconfig.nvim' }, -- Optional
-
-          -- Autocompletion
-          { 'hrsh7th/nvim-cmp' },     -- Required
-          { 'hrsh7th/cmp-nvim-lsp' }, -- Required
-          { 'hrsh7th/cmp-buffer' },   -- Required
-          { 'L3MON4D3/LuaSnip' },     -- Required
-      }
-  },
+  { 'neovim/nvim-lspconfig' },
+  { 'williamboman/mason.nvim' },
   'tpope/vim-vinegar',
   'morhetz/gruvbox',
   { "akinsho/toggleterm.nvim",         version = "*",     config = true },
@@ -60,7 +43,6 @@ local plugins = {
   },
 
   'lukas-reineke/indent-blankline.nvim',
-  'numToStr/Comment.nvim',
   {
       "folke/which-key.nvim",
       event = "VeryLazy",

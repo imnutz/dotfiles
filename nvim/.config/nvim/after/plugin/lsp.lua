@@ -1,76 +1,41 @@
-local lsp = require('lsp-zero').preset({})
 local builtin = require('telescope.builtin')
-local cmp = require('cmp')
 
 vim.diagnostic.config({
     virtual_text = false,
+    signs = {
+        text = {
+            [vim.diagnostic.severity.ERROR] = 'E',
+            [vim.diagnostic.severity.WARN]  = 'W',
+            [vim.diagnostic.severity.HINT]  = 'H',
+            [vim.diagnostic.severity.INFO]  = 'I',
+        },
+    },
 })
 
-lsp.on_attach(function(client, bufnr)
-    -- see :help lsp-zero-keybindings
-    -- to learn the available actions
-    lsp.default_keymaps({ buffer = bufnr })
-end)
-
-local capabilities = require('blink.cmp').get_lsp_capabilities()
-
--- (Optional) Configure lua language server for neovim
 require('mason').setup({})
+
+-- blink.cmp provides the completion capabilities for every server
+vim.lsp.config('*', {
+    capabilities = require('blink.cmp').get_lsp_capabilities(),
+})
 
 vim.lsp.enable('lua_ls')
 vim.lsp.enable('solargraph')
 
-cmp.setup({
-    sources = {
-        { name = 'nvim_lsp' },
-        { name = 'buffer' },
-    },
-    mapping = {
-        ['<C-y>'] = cmp.mapping.confirm({ select = false }),
-        ['<C-e>'] = cmp.mapping.abort(),
-        ['<Up>'] = cmp.mapping.select_prev_item({ behavior = 'select' }),
-        ['<Down>'] = cmp.mapping.select_next_item({ behavior = 'select' }),
-        ['<C-p>'] = cmp.mapping(function()
-            if cmp.visible() then
-                cmp.select_prev_item({ behavior = 'insert' })
-            else
-                cmp.complete()
-            end
-        end),
-        ['<C-n>'] = cmp.mapping(function()
-            if cmp.visible() then
-                cmp.select_next_item({ behavior = 'insert' })
-            else
-                cmp.complete()
-            end
-        end),
-    }
+vim.api.nvim_create_autocmd('LspAttach', {
+    callback = function(event)
+        local opts = { buffer = event.buf, remap = false }
+
+        vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
+        vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
+        vim.keymap.set("n", "<leader>wo", function() builtin.lsp_dynamic_workspace_symbols() end, opts)
+        vim.keymap.set("n", "<leader>do", function() builtin.lsp_document_symbols() end, opts)
+        vim.keymap.set("n", "<leader>of", function() vim.diagnostic.open_float() end, opts)
+        vim.keymap.set("n", "[d", function() vim.diagnostic.goto_next() end, opts)
+        vim.keymap.set("n", "]d", function() vim.diagnostic.goto_prev() end, opts)
+        vim.keymap.set("n", "<leader>vca", function() vim.lsp.buf.code_action() end, opts)
+        vim.keymap.set("n", "<leader>vrr", function() vim.lsp.buf.references() end, opts)
+        vim.keymap.set("n", "<leader>vrn", function() vim.lsp.buf.rename() end, opts)
+        vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
+    end,
 })
-
-lsp.set_preferences({
-    suggest_lsp_servers = false,
-    sign_icons = {
-        error = 'E',
-        warn = 'W',
-        hint = 'H',
-        info = 'I'
-    }
-})
-
-lsp.on_attach(function(client, bufnr)
-    local opts = { buffer = bufnr, remap = false }
-
-    vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
-    vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
-    vim.keymap.set("n", "<leader>wo", function() builtin.lsp_dynamic_workspace_symbols() end, opts)
-    vim.keymap.set("n", "<leader>do", function() builtin.lsp_document_symbols() end, opts)
-    vim.keymap.set("n", "<leader>of", function() vim.diagnostic.open_float() end, opts)
-    vim.keymap.set("n", "[d", function() vim.diagnostic.goto_next() end, opts)
-    vim.keymap.set("n", "]d", function() vim.diagnostic.goto_prev() end, opts)
-    vim.keymap.set("n", "<leader>vca", function() vim.lsp.buf.code_action() end, opts)
-    vim.keymap.set("n", "<leader>vrr", function() vim.lsp.buf.references() end, opts)
-    vim.keymap.set("n", "<leader>vrn", function() vim.lsp.buf.rename() end, opts)
-    vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
-end)
-
-lsp.setup()

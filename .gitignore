@@ -1,1 +1,10 @@
 todo.md
+.tokensave
+bin/.local/bin/tokensave
+bin/.local/bin/headroom
+bin/.local/bin/claude
+bin/.local/bin/uv
+bin/.local/bin/uvx
+.claude/.headroom_wrap_marker.json
+bin/.local/share/
+bin/.local/state/
