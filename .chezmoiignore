@@ -1,0 +1,12 @@
+{{- if ne .chezmoi.os "darwin" }}
+# macOS-only tooling — skipped on Windows/Linux
+.config/yabai
+.skhdrc
+.yabairc
+.config/tmux
+.tmux.conf
+.tmux-cht-command
+.tmux-cht-languages
+.local/bin/tmux-sessionizer
+.local/bin/tmux-cht.sh
+{{- end }}
