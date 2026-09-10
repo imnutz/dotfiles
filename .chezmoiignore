@@ -1,3 +1,5 @@
+bin/
+
 {{- if ne .chezmoi.os "darwin" }}
 # macOS-only tooling — skipped on Windows/Linux
 .config/yabai

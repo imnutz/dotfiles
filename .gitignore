@@ -3,4 +3,4 @@ todo.md
 .claude/.headroom_wrap_marker.json
 
 # bin/.local is the stow-era mount of ~/.local — runtime state & tools, not config
-bin/
+/bin/
